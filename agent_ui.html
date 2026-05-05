@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Synthetic Patient Generator</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="header">
+  <span class="header-title">Synthetic Healthcare Data Generation Agent</span>
+</div>
+
+<div class="api-bar">
+  <label>API:</label>
+  <input id="api-url" type="text" value="http://localhost:8000" placeholder="http://localhost:8000" />
+  <div class="status-dot" id="status-dot"></div>
+  <span id="status-label" style="color:#aaa;">not checked</span>
+</div>
+
+<div class="main">
+  <div class="sidebar">
+    <h3>Quick presets</h3>
+    <button class="preset-btn" onclick="sendPreset('Generate 5 synthetic patients: 65-year-old male, MICU, circulatory diagnosis, stayed 2-7 days, with hypertension and CHF.')">
+      <strong> Cardiac male</strong>
+      <span>65yo, MICU, CHF+HTN, 2-7d</span>
+    </button>
+    <button class="preset-btn" onclick="sendPreset('Generate 5 synthetic patients: 45-year-old female, SICU, infectious diagnosis (septicemia), long stay over 14 days, with septicemia and renal failure comorbidities.')">
+      <strong> Sepsis female</strong>
+      <span>45yo, SICU, septicemia, &gt;14d</span>
+    </button>
+    <button class="preset-btn" onclick="sendPreset('Generate 3 synthetic patients: 72-year-old female, CCU, respiratory diagnosis, short stay under 2 days, with COPD.')">
+      <strong> COPD elderly</strong>
+      <span>72yo, CCU, respiratory, &lt;2d</span>
+    </button>
+    <button class="preset-btn" onclick="sendPreset('Generate 10 synthetic patients: 55-year-old male, TSICU, injury diagnosis, 7-14 day stay, with coagulopathy and diabetes.')">
+      <strong> Trauma male</strong>
+      <span>55yo, TSICU, injury, 7-14d</span>
+    </button>
+    <button class="preset-btn" onclick="sendPreset('Generate 5 synthetic patients: 30-year-old female, MICU, endocrine/metabolic diagnosis, 2-7 day stay, with diabetes with complications.')">
+      <strong> DKA female</strong>
+      <span>30yo, MICU, endocrine, 2-7d</span>
+    </button>
+
+    <div class="sidebar-divider"></div>
+    <h3>Ask the model</h3>
+    <button class="preset-btn" onclick="sendPreset('What conditioning variables does the model accept?')">
+      <strong> Model inputs</strong>
+      <span>What can I specify?</span>
+    </button>
+    <button class="preset-btn" onclick="sendPreset('What are all the valid care unit, LOS, diagnosis, and comorbidity options?')">
+      <strong> All options</strong>
+      <span>Valid enum values</span>
+    </button>
+    <button class="preset-btn" onclick="sendPreset('Generate 5 patients for a typical MICU admission and explain what the lab values mean clinically.')">
+      <strong> Explain labs</strong>
+      <span>Generate + interpret</span>
+    </button>
+
+    <div class="sidebar-divider"></div>
+    <h3>Sessions</h3>
+    <button class="preset-btn" onclick="newSession()" style="border-color:#0f6e56;color:#0f6e56">
+      <strong>+ New session</strong>
+      <span>Clear and start fresh</span>
+    </button>
+    <button class="preset-btn" onclick="loadSessions()">
+      <strong>Resume session</strong>
+      <span>Pick from saved sessions</span>
+    </button>
+    <div style="display:flex;gap:4px;margin-top:6px">
+      <input id="session-id-input" type="text" placeholder="Paste session ID..."
+        onkeydown="if(event.key==='Enter') resumeSessionFromInput()"
+        style="flex:1;font-size:11px;padding:5px 7px;border:1px solid #e5e3de;border-radius:6px;outline:none;color:#333" />
+      <button onclick="resumeSessionFromInput()"
+        style="padding:5px 8px;background:#0f6e56;color:#fff;border:none;border-radius:6px;font-size:11px;cursor:pointer;font-weight:500">Go</button>
+    </div>
+    <div id="session-list" style="margin-top:6px"></div>
+    <div id="session-badge" style="display:none;margin-top:8px;font-size:11px;color:#0f6e56;padding:4px 8px;background:#e8f5f1;border-radius:6px"></div>
+  </div>
+
+  <div class="chat-area">
+    <div class="messages" id="messages">
+      <!-- welcome -->
+      <div class="msg">
+        <div class="avatar ai">AI</div>
+        <div class="bubble">
+          Hi! I can generate synthetic ICU patient lab records from the cVAE model trained on MIMIC-III data.<br><br>
+          You can ask me things like:<br>
+          - <em>"Give me 5 sepsis patients, female, age 50, SICU, long stay"</em><br>
+          - <em>"Generate cardiac patients with CHF and renal failure"</em><br>
+          - <em>"What options does the model accept?"</em><br><br>
+          Or use the presets on the left. Make sure your API server is running at the URL above.
+        </div>
+      </div>
+    </div>
+    <div class="input-area">
+      <div class="input-wrap">
+        <textarea id="user-input" rows="1" placeholder="Describe the patient profile you want..." onkeydown="handleKey(event)" oninput="autoResize(this)"></textarea>
+      </div>
+      <button class="send-btn" id="send-btn" onclick="sendMessage()">
+        <svg viewBox="0 0 24 24"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg>
+      </button>
+    </div>
+  </div>
+</div>
+
+<script src="agent_ui.js"></script>
+</body>
+</html>
