@@ -8,6 +8,6 @@ The system prompt is designed with many prompt engineering strategies in order t
 
 The cVAE shown uses sliced wasserstein distance instead of KL divergence, which showed an improvement in performance. See api.py for more details on how the model works. It uses the pkl and pt files for scalers and columns and weights of the models from my training, respectively, to run the model here. These are ommitted from the repository because it is derived from non-public.
 
-The cVAE was part of a bigger project that compares many models that generate patient data trained on the [MIMIC-III dataset](https://physionet.org/content/mimiciii/1.4/). To see the reports made and final report and presentations along with the code of the 2 cVAE variations tested (other models from project may not be directly shown), see [its GitHub repository](https://github.com/StevePatpatyan/Stephen-Patpatyan-Synthetic-Healthcare-Data-Generation-Project) when it becomes available.
+The cVAE was part of a bigger project that compares many models that generate patient data trained on the [MIMIC-III dataset](https://physionet.org/content/mimiciii/1.4/). To see the reports made and final report and presentations along with the code of the 2 cVAE variations tested (other models from project may not be directly shown), see [its GitHub repository](https://github.com/StevePatpatyan/Synthetic-Healthcare-Data-Generation-CVAE).
 
 No explicit license stated at the moment.

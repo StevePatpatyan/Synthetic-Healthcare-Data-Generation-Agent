@@ -175,7 +175,7 @@ def generate_patients(age, gender_male, careunit, los_bucket, ccs_group,
     c = build_condition_vector(age, gender_male, careunit, los_bucket, ccs_group, elix_flags)
     synth_scaled = model.generate(c, n_samples=n_samples).cpu().numpy()
     df = inverse_transform_labs(synth_scaled)
-    # Round to 3 decimal places for clean output
+    # round to 3 decimal places for clean output
     return df.round(3).to_dict(orient="records")
 
 
