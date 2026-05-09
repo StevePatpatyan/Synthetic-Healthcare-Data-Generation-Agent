@@ -11,3 +11,7 @@ The cVAE shown uses sliced wasserstein distance instead of KL divergence, which 
 The cVAE was part of a bigger project that compares many models that generate patient data trained on the [MIMIC-III dataset](https://physionet.org/content/mimiciii/1.4/). To see the reports made and final report and presentations along with the code of the 2 cVAE variations tested (other models from project may not be directly shown), see [its GitHub repository](https://github.com/StevePatpatyan/Synthetic-Healthcare-Data-Generation-CVAE).
 
 No explicit license stated at the moment.
+
+Data and Legal Limitations
+•	The model is trained on MIMIC-III, which is credentialed data. The trained weights cannot be openly distributed, limiting the system’s shareability.
+•	The system generates de-identified synthetic data but has not been formally evaluated for re-identification risk or clinical safety.
