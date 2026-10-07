@@ -2,7 +2,7 @@
 cvae_api.py  -  FastAPI backend for the cVAE Synthetic Patient Generator
 ==========================================================================
 Run with:
-    uvicorn cvae_api:app --reload --port 8000
+    uvicorn api:app --reload --port 8000
 
 Requirements:
     pip install fastapi uvicorn torch numpy pandas scikit-learn anthropic
