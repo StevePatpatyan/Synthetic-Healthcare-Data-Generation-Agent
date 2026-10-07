@@ -1,8 +1,10 @@
 """
-cvae_api.py  -  FastAPI backend for the cVAE Synthetic Patient Generator
+api.py  -  FastAPI backend for the cVAE Synthetic Patient Generator
 ==========================================================================
 Run with:
     uvicorn api:app --reload --port 8000
+
+(Don't forget to export Anthropic API Key or use .env file to load it within the code.)
 
 Requirements:
     pip install fastapi uvicorn torch numpy pandas scikit-learn anthropic
